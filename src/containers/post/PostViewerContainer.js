@@ -33,6 +33,15 @@ const PostViewerContainer = ({ match }) => {
         navigate('/write');
     };
 
+    const onRemove = async () => {
+        try {
+            await removePost(postId);
+            navigate('/');
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     const ownPost = (user && user._id) === (post && post.user._id);
 
     return (
@@ -41,7 +50,7 @@ const PostViewerContainer = ({ match }) => {
             loading={loading} 
             error={error}
             actionButtons={
-                ownPost && <PostActionButtons onEdit={onEdit} />
+                ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove}/>
             } 
         />
     );
